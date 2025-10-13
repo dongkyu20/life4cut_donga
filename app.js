@@ -96,7 +96,7 @@ const appState = {
     selectedFrameImage: null,  // Will store the loaded frame image
     finalImageDataUrl: '',
     uploadedImageUrl: '',
-    pages: ['capture-page', 'selection-page', 'frame-page', 'preview-page'],
+    pages: ['home-page', 'capture-page', 'selection-page', 'frame-page', 'preview-page'],
     currentPage: 0
 };
 
@@ -133,7 +133,7 @@ async function initializeCamera() {
             // Enable start button once video is ready
             if (startButton) {
                 startButton.disabled = false;
-                startButton.textContent = 'Start';
+                startButton.textContent = '촬영';
             }
         };
 
@@ -149,7 +149,10 @@ async function initializeCamera() {
 
 // Event listeners setup
 function setupEventListeners() {
-    // Page 1: Capture
+    // Page 1: Home
+    document.getElementById('start-from-home').addEventListener('click', () => navigateToPage(1));
+
+    // Page 2: Capture
     const startButton = document.getElementById('start-capture');
     if (startButton) {
         startButton.addEventListener('click', startPhotoCapture);
@@ -158,24 +161,27 @@ function setupEventListeners() {
         console.error('Start button not found');
     }
 
-    // Page 2: Selection
-    document.getElementById('back-to-capture').addEventListener('click', () => navigateToPage(0));
+    // Page 3: Selection
+    document.getElementById('back-to-capture').addEventListener('click', () => navigateToPage(1));
     document.getElementById('continue-to-frame').addEventListener('click', () => {
         if (appState.selectedPhotos.length === 4) {
             renderFramePreview();
-            navigateToPage(2);
+            navigateToPage(3);
         }
     });
 
-    // Page 3: Frame
-    document.getElementById('back-to-selection').addEventListener('click', () => navigateToPage(1));
+    // Page 4: Frame
+    document.getElementById('back-to-selection').addEventListener('click', () => navigateToPage(2));
     document.getElementById('continue-to-preview').addEventListener('click', () => {
         generateFinalImage();
-        navigateToPage(3);
+        navigateToPage(4);
     });
 
-    // Page 4: Preview
-    document.getElementById('download-direct').addEventListener('click', downloadFinalImage);
+    // Page 5: Preview
+    const downloadButton = document.getElementById('download-direct');
+    if (downloadButton) {
+        downloadButton.addEventListener('click', downloadFinalImage);
+    }
     document.getElementById('start-over').addEventListener('click', resetApp);
 }
 
@@ -250,6 +256,7 @@ async function startPhotoCapture() {
     const startButton = document.getElementById('start-capture');
     const progressIndicator = document.getElementById('progress-indicator');
     const photoCount = document.getElementById('photo-count');
+    const captureInstruction = document.getElementById('capture-instruction');
 
     // Check if video is ready
     if (!video.videoWidth || !video.videoHeight) {
@@ -266,6 +273,11 @@ async function startPhotoCapture() {
     canvas.height = video.videoHeight;
     console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
 
+    // Hide instruction text
+    if (captureInstruction) {
+        captureInstruction.style.display = 'none';
+    }
+
     // Disable start button and show progress
     startButton.disabled = true;
     progressIndicator.classList.remove('hidden');
@@ -275,7 +287,7 @@ async function startPhotoCapture() {
         photoCount.textContent = i + 1;
 
         // Countdown from 3 to 1
-        for (let count = 1; count > 0; count--) {
+        for (let count = 3; count > 0; count--) {
             countdown.textContent = count;
             countdown.classList.add('show');
             await sleep(1000);
@@ -305,7 +317,7 @@ async function startPhotoCapture() {
     // Automatically move to selection page
     setTimeout(() => {
         renderSelectionGrid();
-        navigateToPage(1);
+        navigateToPage(2);
     }, 1500);
 }
 
@@ -359,7 +371,7 @@ function updateSelectionButton() {
     const button = document.getElementById('continue-to-frame');
     const count = appState.selectedPhotos.length;
 
-    button.textContent = count === 4 ? 'Next' : `${count}/4`;
+    button.textContent = count === 4 ? '다음' : `${count}/4`;
     button.disabled = count !== 4;
 }
 
@@ -699,6 +711,14 @@ function navigateToPage(pageIndex) {
         const page = document.getElementById(pageId);
         if (index === pageIndex) {
             page.classList.add('active');
+
+            // Show capture instruction when navigating to capture page
+            if (pageId === 'capture-page') {
+                const captureInstruction = document.getElementById('capture-instruction');
+                if (captureInstruction) {
+                    captureInstruction.style.display = 'block';
+                }
+            }
         } else {
             page.classList.remove('active');
         }

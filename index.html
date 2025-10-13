@@ -4,20 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Four Cuts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body>
     <div id="app">
-        <!-- Page 1: Capture -->
-        <div id="capture-page" class="page active">
+        <!-- Page 1: Home -->
+        <div id="home-page" class="page active">
+            <div class="home-container">
+                <div class="home-top">
+                    <h1 class="home-title">동아네컷</h1>
+                </div>
+                <div class="home-bottom">
+                    <p class="home-description">Capture your memories in photos<br>for the Dong-A hackathon</p>
+                    <button id="start-from-home" class="btn home-btn">시작</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Capture -->
+        <div id="capture-page" class="page">
             <div class="container">
-                <h1 style="font-weight: bold">동아네컷</h1>
+                <h1 id="capture-instruction">하단의 '촬영'버튼을 누르면 촬영이 시작됩니다</h1>
                 <div class="camera-container">
                     <video id="camera-stream" autoplay playsinline></video>
                     <canvas id="capture-canvas"></canvas>
-                    <div id="countdown" class="countdown"></div>
                 </div>
+                <div id="countdown" class="countdown"></div>
                 <div id="progress-indicator" class="progress-indicator hidden">
                     <span id="photo-count">0</span>/8
                 </div>
@@ -28,11 +44,11 @@
         <!-- Page 2: Select -->
         <div id="selection-page" class="page">
             <div class="container">
-                <h1>Select 4</h1>
+                <h1>4장의 사진을 선택해주세요</h1>
                 <div class="selection-grid" id="selection-grid"></div>
                 <div class="controls">
-                    <button id="back-to-capture" class="btn secondary">Back</button>
-                    <button id="continue-to-frame" class="btn" disabled>Next</button>
+                    <button id="back-to-capture" class="btn secondary">이전</button>
+                    <button id="continue-to-frame" class="btn" disabled>다음</button>
                 </div>
             </div>
         </div>
@@ -43,8 +59,8 @@
                 <canvas id="frame-preview"></canvas>
                 <div class="frame-options" id="frame-options"></div>
                 <div class="controls">
-                    <button id="back-to-selection" class="btn secondary">Back</button>
-                    <button id="continue-to-preview" class="btn">Next</button>
+                    <button id="back-to-selection" class="btn secondary">이전</button>
+                    <button id="continue-to-preview" class="btn">다음</button>
                 </div>
             </div>
         </div>
@@ -55,8 +71,8 @@
                 <canvas id="final-canvas"></canvas>
                 <div id="qr-code"></div>
                 <div class="controls">
-                    <button id="download-direct" class="btn">Download</button>
-                    <button id="start-over" class="btn secondary">New</button>
+                    <!-- <button id="download-direct" class="btn">다운로드</button> -->
+                    <button id="start-over" class="btn">처음으로</button>
                 </div>
             </div>
         </div>
