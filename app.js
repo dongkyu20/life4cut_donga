@@ -1,8 +1,8 @@
 // Appwrite configuration
 const appwriteConfig = {
-  endpoint: 'https://syd.cloud.appwrite.io/v1', // Appwrite Cloud endpoint
-  projectId: '<project_id>',
-  bucketId: '<bucket_id>'
+    endpoint: '', // Appwrite Cloud endpoint
+    projectId: '',
+    bucketId: ''
 };
 
 // Initialize Appwrite
@@ -16,71 +16,84 @@ function initializeAppwrite() {
   appwriteStorage = new Appwrite.Storage(appwriteClient);
 }
 
-// Frame configurations with custom photo positions and sizes
-const frameConfigs = {
-    classic: {
-        name: 'Classic',
-        frameImage: 'frame1.png',
-        canvasWidth: 400,
-        canvasHeight: 800,
-        photos: [
-            { x: 30, y: 50, width: 167, height: 297 },   // Top-left
-            { x: 203, y: 50, width: 167, height: 297 },  // Top-right
-            { x: 30, y: 350, width: 167, height: 297 },  // Bottom-left
-            { x: 203, y: 350, width: 167, height: 297 }  // Bottom-right
-        ],
-        titleY: 40,
-        dateY: 780
+// Available frame images with photo position configurations
+// Based on canvas 400x800, converted to percentages
+// Reference: x: 30, y: 50, width: 167, height: 297 for top-left
+const frameImages = [
+    {
+        id: 1,
+        path: 'frames/1.png',
+        name: 'Frame 1',
+        photoPositions: [
+            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+        ]
     },
-    polaroid: {
-        name: 'Polaroid',
-        frameImage: 'frame2.png',
-        canvasWidth: 400,
-        canvasHeight: 800,
-        photos: [
-            { x: 50, y: 80, width: 150, height: 150 },
-            { x: 210, y: 80, width: 150, height: 150 },
-            { x: 50, y: 280, width: 150, height: 150 },
-            { x: 210, y: 280, width: 150, height: 150 }
-        ],
-        titleY: 50,
-        dateY: 760
+    {
+        id: 2,
+        path: 'frames/2.png',
+        name: 'Frame 2',
+        photoPositions: [
+            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+        ]
     },
-    compact: {
-        name: 'Compact',
-        frameImage: 'frame3.png',
-        canvasWidth: 400,
-        canvasHeight: 800,
-        photos: [
-            { x: 70, y: 100, width: 130, height: 130 },
-            { x: 210, y: 100, width: 130, height: 130 },
-            { x: 70, y: 250, width: 130, height: 130 },
-            { x: 210, y: 250, width: 130, height: 130 }
-        ],
-        titleY: 60,
-        dateY: 740
+    {
+        id: 3,
+        path: 'frames/3.png',
+        name: 'Frame 3',
+        photoPositions: [
+            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+        ]
     },
-    vertical: {
-        name: 'Vertical Strip',
-        frameImage: 'frame4.png',
-        canvasWidth: 300,
-        canvasHeight: 1000,
-        photos: [
-            { x: 50, y: 50, width: 200, height: 200 },
-            { x: 50, y: 270, width: 200, height: 200 },
-            { x: 50, y: 490, width: 200, height: 200 },
-            { x: 50, y: 710, width: 200, height: 200 }
-        ],
-        titleY: 30,
-        dateY: 970
-    }
-};
+    {
+        id: 4,
+        path: 'frames/4.png',
+        name: 'Frame 4',
+        photoPositions: [
+            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+        ]
+    },
+    {
+        id: 5,
+        path: 'frames/5.png',
+        name: 'Frame 5',
+        photoPositions: [
+            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+        ]
+    },
+    // {
+    //     id: 6,
+    //     path: 'frames/6.png',
+    //     name: 'Frame 6',
+    //     photoPositions: [
+    //         { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
+    //         { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
+    //         { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
+    //         { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+    //     ]
+    // }
+];
 
 // Global state management
 const appState = {
     capturedPhotos: [],
     selectedPhotos: [],
-    currentFrame: 'classic',
+    selectedFrameId: 1,  // Default to first frame
+    selectedFrameImage: null,  // Will store the loaded frame image
     finalImageDataUrl: '',
     uploadedImageUrl: '',
     pages: ['capture-page', 'selection-page', 'frame-page', 'preview-page'],
@@ -98,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Camera initialization
 async function initializeCamera() {
     const video = document.getElementById('camera-stream');
+    const startButton = document.getElementById('start-capture');
 
     try {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -110,16 +124,39 @@ async function initializeCamera() {
         });
 
         video.srcObject = stream;
+
+        // Wait for video to be ready
+        video.onloadedmetadata = () => {
+            console.log('Camera initialized successfully');
+            console.log(`Video dimensions: ${video.videoWidth}x${video.videoHeight}`);
+
+            // Enable start button once video is ready
+            if (startButton) {
+                startButton.disabled = false;
+                startButton.textContent = 'Start';
+            }
+        };
+
     } catch (error) {
         console.error('Error accessing camera:', error);
-        alert('Unable to access camera. Please ensure you have granted camera permissions.');
+        // Show error message on button
+        if (startButton) {
+            startButton.textContent = 'Camera Error';
+            startButton.disabled = true;
+        }
     }
 }
 
 // Event listeners setup
 function setupEventListeners() {
     // Page 1: Capture
-    document.getElementById('start-capture').addEventListener('click', startPhotoCapture);
+    const startButton = document.getElementById('start-capture');
+    if (startButton) {
+        startButton.addEventListener('click', startPhotoCapture);
+        console.log('Start button listener attached');
+    } else {
+        console.error('Start button not found');
+    }
 
     // Page 2: Selection
     document.getElementById('back-to-capture').addEventListener('click', () => navigateToPage(0));
@@ -147,23 +184,23 @@ function generateFrameOptions() {
     const container = document.getElementById('frame-options');
     container.innerHTML = '';
 
-    Object.keys(frameConfigs).forEach((frameKey, index) => {
-        const frame = frameConfigs[frameKey];
+    frameImages.forEach((frame, index) => {
         const option = document.createElement('div');
         option.className = 'frame-option' + (index === 0 ? ' selected' : '');
-        option.dataset.frame = frameKey;
+        option.dataset.frameId = frame.id;
 
-        // Create thumbnail preview
+        // Create thumbnail with actual frame image
         const thumbnail = document.createElement('div');
         thumbnail.className = 'frame-thumbnail';
-        thumbnail.innerHTML = `
-            <div class="frame-preview-mini">
-                <div class="photo-placeholder"></div>
-                <div class="photo-placeholder"></div>
-                <div class="photo-placeholder"></div>
-                <div class="photo-placeholder"></div>
-            </div>
-        `;
+
+        const img = document.createElement('img');
+        img.src = frame.path;
+        img.alt = frame.name;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
+
+        thumbnail.appendChild(img);
 
         const label = document.createElement('p');
         label.textContent = frame.name;
@@ -174,16 +211,38 @@ function generateFrameOptions() {
         option.addEventListener('click', function() {
             document.querySelectorAll('.frame-option').forEach(opt => opt.classList.remove('selected'));
             this.classList.add('selected');
-            appState.currentFrame = frameKey;
-            renderFramePreview();
+            appState.selectedFrameId = frame.id;
+
+            // Load the selected frame image
+            const selectedFrame = frameImages.find(f => f.id === frame.id);
+            if (selectedFrame) {
+                const frameImg = new Image();
+                frameImg.onload = function() {
+                    appState.selectedFrameImage = frameImg;
+                    renderFramePreview();
+                };
+                frameImg.src = selectedFrame.path;
+            }
         });
 
         container.appendChild(option);
     });
+
+    // Load the default frame image
+    const defaultFrame = frameImages.find(f => f.id === appState.selectedFrameId);
+    if (defaultFrame) {
+        const frameImg = new Image();
+        frameImg.onload = function() {
+            appState.selectedFrameImage = frameImg;
+        };
+        frameImg.src = defaultFrame.path;
+    }
 }
 
 // Photo capture functionality
 async function startPhotoCapture() {
+    console.log('Starting photo capture...');
+
     const video = document.getElementById('camera-stream');
     const canvas = document.getElementById('capture-canvas');
     const ctx = canvas.getContext('2d');
@@ -191,15 +250,21 @@ async function startPhotoCapture() {
     const startButton = document.getElementById('start-capture');
     const progressIndicator = document.getElementById('progress-indicator');
     const photoCount = document.getElementById('photo-count');
-    const capturedPhotosContainer = document.getElementById('captured-photos');
+
+    // Check if video is ready
+    if (!video.videoWidth || !video.videoHeight) {
+        console.error('Video not ready');
+        startButton.textContent = 'Try Again';
+        return;
+    }
 
     // Reset captured photos
     appState.capturedPhotos = [];
-    capturedPhotosContainer.innerHTML = '';
 
     // Setup canvas dimensions
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
+    console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
 
     // Disable start button and show progress
     startButton.disabled = true;
@@ -209,17 +274,14 @@ async function startPhotoCapture() {
     for (let i = 0; i < 8; i++) {
         photoCount.textContent = i + 1;
 
-        // Countdown from 5 to 1
-        for (let count = 5; count > 0; count--) {
+        // Countdown from 3 to 1
+        for (let count = 1; count > 0; count--) {
             countdown.textContent = count;
             countdown.classList.add('show');
             await sleep(1000);
         }
 
         // Capture photo
-        countdown.textContent = 'SMILE!';
-        await sleep(500);
-
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const photoDataUrl = canvas.toDataURL('image/jpeg', 0.9);
         appState.capturedPhotos.push(photoDataUrl);
@@ -286,8 +348,6 @@ function togglePhotoSelection(event) {
         if (appState.selectedPhotos.length < 4) {
             photoItem.classList.add('selected');
             appState.selectedPhotos.push(photo);
-        } else {
-            alert('You can only select 4 photos!');
         }
     }
 
@@ -299,7 +359,7 @@ function updateSelectionButton() {
     const button = document.getElementById('continue-to-frame');
     const count = appState.selectedPhotos.length;
 
-    button.textContent = `Continue (${count}/4 selected)`;
+    button.textContent = count === 4 ? 'Next' : `${count}/4`;
     button.disabled = count !== 4;
 }
 
@@ -307,64 +367,89 @@ function updateSelectionButton() {
 function renderFramePreview() {
     const canvas = document.getElementById('frame-preview');
     const ctx = canvas.getContext('2d');
-    const config = frameConfigs[appState.currentFrame];
 
-    // Set canvas size based on frame configuration
-    canvas.width = config.canvasWidth;
-    canvas.height = config.canvasHeight;
+    if (!appState.selectedFrameImage) {
+        console.log('Frame image not loaded yet');
+        return;
+    }
+
+    // Get the current frame configuration
+    const currentFrame = frameImages.find(f => f.id === appState.selectedFrameId);
+    if (!currentFrame) {
+        console.error('Frame configuration not found');
+        return;
+    }
+
+    // Set canvas size to match frame image dimensions
+    canvas.width = 600; // Standard width for display
+    const aspectRatio = appState.selectedFrameImage.height / appState.selectedFrameImage.width;
+    canvas.height = 600 * aspectRatio;
 
     // Clear canvas with white background
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // First, draw the frame background if it exists
-    if (config.frameImage) {
-        const frameImg = new Image();
-        frameImg.onload = function() {
-            // Draw frame first (no transparency)
-            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-
-            // Then draw photos on top
-            drawPhotosOnCanvas(ctx, config, appState.selectedPhotos, () => {
-                // Add text decorations after photos
-                drawTextDecorations(ctx, config);
-            });
-        };
-        frameImg.onerror = function() {
-            console.log(`${config.frameImage} not found, drawing without frame`);
-            // Draw photos without frame
-            drawPhotosOnCanvas(ctx, config, appState.selectedPhotos, () => {
-                drawTextDecorations(ctx, config);
-            });
-        };
-        frameImg.src = config.frameImage;
-    } else {
-        // No frame image, just draw photos
-        drawPhotosOnCanvas(ctx, config, appState.selectedPhotos, () => {
-            drawTextDecorations(ctx, config);
-        });
-    }
-}
-
-// Helper function to draw photos on canvas
-function drawPhotosOnCanvas(ctx, config, photos, callback) {
+    // Draw the selected photos using custom positions
     let loadedPhotos = 0;
-
-    photos.forEach((photo, index) => {
+    appState.selectedPhotos.forEach((photo, index) => {
         const img = new Image();
         img.onload = function() {
-            const photoConfig = config.photos[index];
+            const pos = currentFrame.photoPositions[index];
 
-            // Draw photo with cropping to maintain aspect ratio
-            drawCroppedImage(ctx, img, photoConfig.x, photoConfig.y, photoConfig.width, photoConfig.height);
+            // Convert percentage positions to actual pixel coordinates
+            const x = (pos.x / 100) * canvas.width;
+            const y = (pos.y / 100) * canvas.height;
+            const width = (pos.width / 100) * canvas.width;
+            const height = (pos.height / 100) * canvas.height;
+
+            drawCroppedImage(ctx, img, x, y, width, height);
 
             loadedPhotos++;
-            if (loadedPhotos === 4 && callback) {
-                callback();
+            // After all photos are drawn, draw the frame with transparency on top
+            if (loadedPhotos === appState.selectedPhotos.length) {
+                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
+                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
             }
         };
         img.src = photo;
     });
+}
+
+
+// Function to make gray areas in frame transparent
+function makeGrayTransparent(frameImg) {
+    // Create a temporary canvas to process the frame
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = frameImg.width;
+    tempCanvas.height = frameImg.height;
+    const tempCtx = tempCanvas.getContext('2d');
+
+    // Draw the frame image
+    tempCtx.drawImage(frameImg, 0, 0);
+
+    // Get image data
+    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+    const data = imageData.data;
+
+    // Loop through pixels and make gray areas transparent
+    // Gray color is approximately RGB(200-210, 200-210, 200-210)
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        // Check if pixel is gray (adjust threshold as needed)
+        // Gray areas in your frames appear to be around RGB(205, 205, 205)
+        if (r > 180 && g > 180 && b > 180 &&
+            Math.abs(r - g) < 20 && Math.abs(g - b) < 20 && Math.abs(r - b) < 20) {
+            data[i + 3] = 0; // Make transparent
+        }
+    }
+
+    // Put the modified image data back
+    tempCtx.putImageData(imageData, 0, 0);
+
+    return tempCanvas;
 }
 
 // Function to draw image with center cropping to maintain aspect ratio
@@ -395,116 +480,64 @@ function drawCroppedImage(ctx, img, x, y, width, height) {
     );
 }
 
-// Helper function to draw text decorations
-function drawTextDecorations(ctx, config) {
-    // Add title
-    ctx.fillStyle = '#764ba2';
-    ctx.font = 'bold 24px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Life Four Cuts', ctx.canvas.width / 2, config.titleY);
-
-    // Add date
-    const date = new Date().toLocaleDateString();
-    ctx.font = '16px Arial';
-    ctx.fillStyle = '#666';
-    ctx.fillText(date, ctx.canvas.width / 2, config.dateY);
-}
 
 
 // Generate final image
 function generateFinalImage() {
     const canvas = document.getElementById('final-canvas');
     const ctx = canvas.getContext('2d');
-    const config = frameConfigs[appState.currentFrame];
 
-    // Set canvas size based on frame configuration
-    canvas.width = config.canvasWidth;
-    canvas.height = config.canvasHeight;
+    if (!appState.selectedFrameImage) {
+        console.error('Frame image not loaded');
+        return;
+    }
+
+    // Get the current frame configuration
+    const currentFrame = frameImages.find(f => f.id === appState.selectedFrameId);
+    if (!currentFrame) {
+        console.error('Frame configuration not found');
+        return;
+    }
+
+    // Set canvas size to high resolution for final output
+    canvas.width = 1800; // High resolution width
+    const aspectRatio = appState.selectedFrameImage.height / appState.selectedFrameImage.width;
+    canvas.height = 1800 * aspectRatio;
 
     // Clear canvas with white background
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // First, draw the frame if it exists
-    if (config.frameImage) {
-        const frameImg = new Image();
-        frameImg.crossOrigin = 'anonymous';
-        frameImg.onload = function() {
-            // Draw frame background first (no transparency)
-            ctx.drawImage(frameImg, 0, 0, canvas.width, canvas.height);
-
-            // Then draw photos on top of frame
-            drawFinalPhotos(ctx, config, () => {
-                // Add text decorations last
-                drawFinalTextDecorations(ctx, config);
-
-                // Save final image
-                appState.finalImageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
-                generateQRCode();
-            });
-        };
-        frameImg.onerror = function() {
-            console.log(`${config.frameImage} not found, generating without frame`);
-            // Draw without frame
-            drawFinalPhotos(ctx, config, () => {
-                drawFinalTextDecorations(ctx, config);
-                appState.finalImageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
-                generateQRCode();
-            });
-        };
-        frameImg.src = config.frameImage;
-    } else {
-        // No frame, just draw photos
-        drawFinalPhotos(ctx, config, () => {
-            drawFinalTextDecorations(ctx, config);
-            appState.finalImageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
-            generateQRCode();
-        });
-    }
-}
-
-// Helper function to draw photos for final image
-function drawFinalPhotos(ctx, config, callback) {
+    // Draw the selected photos using custom positions
     let loadedCount = 0;
-
     appState.selectedPhotos.forEach((photo, index) => {
         const img = new Image();
         img.onload = function() {
-            const photoConfig = config.photos[index];
+            const pos = currentFrame.photoPositions[index];
 
-            // Draw photo with cropping to maintain aspect ratio
-            drawCroppedImage(ctx, img, photoConfig.x, photoConfig.y, photoConfig.width, photoConfig.height);
+            // Convert percentage positions to actual pixel coordinates
+            const x = (pos.x / 100) * canvas.width;
+            const y = (pos.y / 100) * canvas.height;
+            const width = (pos.width / 100) * canvas.width;
+            const height = (pos.height / 100) * canvas.height;
+
+            drawCroppedImage(ctx, img, x, y, width, height);
 
             loadedCount++;
-            if (loadedCount === 4 && callback) {
-                callback();
+            if (loadedCount === 4) {
+                // After all photos are drawn, draw the frame with transparency on top
+                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
+                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
+
+                // Save final image when everything is drawn
+                appState.finalImageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                generateQRCode();
             }
         };
         img.src = photo;
     });
 }
 
-// Helper function to draw text decorations on final image
-function drawFinalTextDecorations(ctx, config) {
-    // Add title
-    ctx.fillStyle = '#764ba2';
-    ctx.font = 'bold 28px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Life Four Cuts', ctx.canvas.width / 2, config.titleY);
-
-    // Add date
-    const date = new Date().toLocaleDateString();
-    ctx.font = '18px Arial';
-    ctx.fillStyle = '#666';
-    ctx.fillText(date, ctx.canvas.width / 2, config.dateY);
-
-    // Add decorative hearts for some frames
-    if (config.name !== 'Vertical Strip') {
-        ctx.fillStyle = '#ff69b4';
-        ctx.font = '20px Arial';
-        ctx.fillText('♥ ♥ ♥', ctx.canvas.width / 2, config.dateY + 20);
-    }
-}
 
 // Upload image to cloud storage
 async function uploadImageToCloud(dataUrl) {
@@ -535,44 +568,8 @@ async function uploadImageToCloud(dataUrl) {
     } catch (error) {
         console.error('Appwrite upload error:', error);
         
-        // Fallback to Imgur if Appwrite fails
-        return await fallbackUpload(dataUrl);
+        return null;
     }
-}
-
-// Fallback upload methods if Appwrite fails
-async function fallbackUpload(dataUrl) {
-    try {
-        // Method 1: Try Imgur (anonymous upload)
-        const base64 = dataUrl.split(',')[1];
-
-        const imgurResponse = await fetch('https://api.imgur.com/3/image', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Client-ID 0cda8c40b32ba0a',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                image: base64,
-                type: 'base64',
-                name: 'life-four-cuts.jpg',
-                title: 'Life Four Cuts Photo'
-            })
-        });
-
-        if (imgurResponse.ok) {
-            const imgurData = await imgurResponse.json();
-            if (imgurData.success && imgurData.data && imgurData.data.link) {
-                console.log('Image uploaded to Imgur fallback:', imgurData.data.link);
-                return imgurData.data.link;
-            }
-        }
-    } catch (err) {
-        console.log('Imgur fallback upload failed:', err);
-    }
-
-    // If all methods fail, return null
-    return null;
 }
 
 // Generate QR code for download
@@ -676,18 +673,21 @@ function downloadFinalImage() {
 function resetApp() {
     appState.capturedPhotos = [];
     appState.selectedPhotos = [];
-    appState.currentFrame = 'classic';
+    appState.selectedFrameId = 1;
+    appState.selectedFrameImage = null;
     appState.finalImageDataUrl = '';
     appState.uploadedImageUrl = '';
 
     // Clear UI
-    document.getElementById('captured-photos').innerHTML = '';
     document.getElementById('selection-grid').innerHTML = '';
     document.getElementById('qr-code').innerHTML = '';
 
     // Reset buttons
-    document.getElementById('start-capture').textContent = 'Start Photo Session';
+    document.getElementById('start-capture').textContent = 'Start';
     updateSelectionButton();
+
+    // Regenerate frame options to reset selection
+    generateFrameOptions();
 
     // Navigate to first page
     navigateToPage(0);

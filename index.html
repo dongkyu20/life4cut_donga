@@ -3,96 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Life Four Cuts - Photo Booth</title>
+    <title>Four Cuts</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
 <body>
     <div id="app">
-        <!-- Page 1: Capture Photos -->
+        <!-- Page 1: Capture -->
         <div id="capture-page" class="page active">
             <div class="container">
-                <h1>Life Four Cuts</h1>
-                <h2>Get Ready for Your Photo Session!</h2>
-
+                <h1 style="font-weight: bold">동아네컷</h1>
                 <div class="camera-container">
                     <video id="camera-stream" autoplay playsinline></video>
                     <canvas id="capture-canvas"></canvas>
                     <div id="countdown" class="countdown"></div>
                 </div>
-
-                <div class="photo-grid" id="captured-photos"></div>
-
-                <div class="controls">
-                    <button id="start-capture" class="btn btn-primary">Start Photo Session</button>
-                    <div id="progress-indicator" class="progress-indicator hidden">
-                        <span>Photo <span id="photo-count">0</span> of 8</span>
-                    </div>
+                <div id="progress-indicator" class="progress-indicator hidden">
+                    <span id="photo-count">0</span>/8
                 </div>
+                <button id="start-capture" class="btn" disabled>Loading...</button>
             </div>
         </div>
 
-        <!-- Page 2: Select 4 Photos -->
+        <!-- Page 2: Select -->
         <div id="selection-page" class="page">
             <div class="container">
-                <h1>Select Your Best 4 Photos</h1>
-                <p class="subtitle">Click to select/deselect photos (4 photos needed)</p>
-
+                <h1>Select 4</h1>
                 <div class="selection-grid" id="selection-grid"></div>
-
                 <div class="controls">
-                    <button id="back-to-capture" class="btn btn-secondary">Back</button>
-                    <button id="continue-to-frame" class="btn btn-primary" disabled>Continue (0/4 selected)</button>
+                    <button id="back-to-capture" class="btn secondary">Back</button>
+                    <button id="continue-to-frame" class="btn" disabled>Next</button>
                 </div>
             </div>
         </div>
 
-        <!-- Page 3: Frame Selection -->
+        <!-- Page 3: Frame -->
         <div id="frame-page" class="page">
             <div class="container">
-                <h1>Choose Your Frame Style</h1>
-
-                <div class="frame-preview-container">
-                    <canvas id="frame-preview"></canvas>
-                </div>
-
-                <div class="frame-options" id="frame-options">
-                    <!-- Frame options will be generated dynamically -->
-                </div>
-
+                <canvas id="frame-preview"></canvas>
+                <div class="frame-options" id="frame-options"></div>
                 <div class="controls">
-                    <button id="back-to-selection" class="btn btn-secondary">Back</button>
-                    <button id="continue-to-preview" class="btn btn-primary">Continue</button>
+                    <button id="back-to-selection" class="btn secondary">Back</button>
+                    <button id="continue-to-preview" class="btn">Next</button>
                 </div>
             </div>
         </div>
 
-        <!-- Page 4: Preview & Download -->
+        <!-- Page 4: Download -->
         <div id="preview-page" class="page">
             <div class="container">
-                <h1>Your Life Four Cuts is Ready!</h1>
-
-                <div class="final-preview">
-                    <canvas id="final-canvas"></canvas>
-                </div>
-
-                <div class="qr-container">
-                    <div id="qr-code"></div>
-                    <p>Scan to Download Your Photos</p>
-                </div>
-
+                <canvas id="final-canvas"></canvas>
+                <div id="qr-code"></div>
                 <div class="controls">
-                    <button id="download-direct" class="btn btn-primary">Download Now</button>
-                    <button id="start-over" class="btn btn-secondary">Start Over</button>
+                    <button id="download-direct" class="btn">Download</button>
+                    <button id="start-over" class="btn secondary">New</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Appwrite SDK -->
     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
-    
-    <!-- QR Code Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="app.js"></script>
 </body>

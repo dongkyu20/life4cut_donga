@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Photo App</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: system-ui;
+            padding: 20px;
+        }
+
+        #status {
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: 1px solid #fff;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #fff;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Camera Test</h1>
+
+    <div id="status">
+        <p>Status: <span id="camera-status">Not initialized</span></p>
+        <p>Console: <pre id="console-output"></pre></p>
+    </div>
+
+    <video id="test-video" width="320" height="240" autoplay></video>
+
+    <div>
+        <button onclick="testCamera()">Test Camera</button>
+        <button onclick="window.location.href='index.html'">Go to Main App</button>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('camera-status');
+        const consoleEl = document.getElementById('console-output');
+
+        // Override console.log to display in page
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog(...args);
+            consoleEl.textContent += args.join(' ') + '\n';
+        };
+
+        const originalError = console.error;
+        console.error = function(...args) {
+            originalError(...args);
+            consoleEl.textContent += 'ERROR: ' + args.join(' ') + '\n';
+        };
+
+        async function testCamera() {
+            statusEl.textContent = 'Requesting camera access...';
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: false
+                });
+
+                const video = document.getElementById('test-video');
+                video.srcObject = stream;
+
+                statusEl.textContent = 'Camera working!';
+                console.log('Camera stream obtained successfully');
+                console.log('Video dimensions will be available after metadata loads');
+
+                video.onloadedmetadata = () => {
+                    console.log(`Video dimensions: ${video.videoWidth}x${video.videoHeight}`);
+                };
+
+            } catch (error) {
+                statusEl.textContent = 'Camera error: ' + error.message;
+                console.error('Camera access failed:', error);
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded, ready to test camera');
+        });
+    </script>
+</body>
+</html>
