@@ -45,7 +45,7 @@ h1 {
 .camera-container {
     position: relative;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto 20px;
     background: #111;
     border-radius: 4px;
@@ -322,6 +322,128 @@ h1 {
     letter-spacing: 2px;
 }
 
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+    #app {
+        max-width: 720px; /* 800px * 0.9 */
+        padding: 18px; /* 20px * 0.9 */
+    }
+
+    h1 {
+        font-size: 21.6px; /* 24px * 0.9 */
+        margin-bottom: 27px; /* 30px * 0.9 */
+    }
+
+    .camera-container {
+        max-width: 630px; /* 700px * 0.9 */
+        margin: 0 auto 18px; /* 20px * 0.9 */
+    }
+
+    .countdown {
+        font-size: 46.8px; /* 52px * 0.9 */
+        height: 100.8px; /* 112px * 0.9 */
+        line-height: 100.8px;
+        margin: 18px 0; /* 20px * 0.9 */
+    }
+
+    .progress-indicator {
+        font-size: 12.6px; /* 14px * 0.9 */
+        margin-bottom: 18px; /* 20px * 0.9 */
+    }
+
+    .selection-grid {
+        gap: 9px; /* 10px * 0.9 */
+        margin-bottom: 27px; /* 30px * 0.9 */
+        max-width: 540px; /* 600px * 0.9 */
+    }
+
+    .photo-item {
+        border: 1.8px solid transparent; /* 2px * 0.9 */
+    }
+
+    .photo-item.selected::after {
+        width: 21.6px; /* 24px * 0.9 */
+        height: 21.6px;
+        font-size: 12.6px; /* 14px * 0.9 */
+    }
+
+    #frame-preview,
+    #final-canvas {
+        max-width: 540px; /* 600px * 0.9 */
+        margin: 0 auto 27px; /* 30px * 0.9 */
+    }
+
+    #selection-frame-preview {
+        max-width: 270px; /* 300px * 0.9 */
+        margin: 0 auto 13.5px; /* 15px * 0.9 */
+    }
+
+    .selection-hint {
+        font-size: 10.8px; /* 12px * 0.9 */
+        margin: 0 auto 18px; /* 20px * 0.9 */
+        max-width: 450px; /* 500px * 0.9 */
+        padding: 0 18px; /* 20px * 0.9 */
+    }
+
+    .frame-options {
+        gap: 13.5px; /* 15px * 0.9 */
+        margin-bottom: 27px; /* 30px * 0.9 */
+        max-width: 630px; /* 700px * 0.9 */
+    }
+
+    .frame-option {
+        padding: 7.2px; /* 8px * 0.9 */
+        border: 1.8px solid #333; /* 2px * 0.9 */
+    }
+
+    .frame-option p {
+        margin-top: 7.2px; /* 8px * 0.9 */
+        font-size: 10.8px; /* 12px * 0.9 */
+    }
+
+    .frame-thumbnail {
+        width: 81px; /* 90px * 0.9 */
+        height: 108px; /* 120px * 0.9 */
+    }
+
+    #qr-code {
+        margin: 0 auto 27px; /* 30px * 0.9 */
+    }
+
+    #qr-code canvas {
+        padding: 9px; /* 10px * 0.9 */
+    }
+
+    .controls {
+        gap: 13.5px; /* 15px * 0.9 */
+    }
+
+    .btn {
+        padding: 10.8px 27px; /* 12px 30px * 0.9 */
+        font-size: 12.6px; /* 14px * 0.9 */
+    }
+
+    .home-title {
+        font-size: 46.8px; /* 52px * 0.9 */
+        letter-spacing: 7.2px; /* 8px * 0.9 */
+    }
+
+    .home-description {
+        font-size: 16.2px; /* 18px * 0.9 */
+        padding: 0 18px; /* 20px * 0.9 */
+    }
+
+    .home-bottom {
+        gap: 27px; /* 30px * 0.9 */
+    }
+
+    .home-btn {
+        margin-top: 18px; /* 20px * 0.9 */
+        padding: 13.5px 45px; /* 15px 50px * 0.9 */
+        font-size: 16.2px; /* 18px * 0.9 */
+    }
+}
+
 /* Mobile */
 @media (max-width: 600px) {
     .selection-grid {
@@ -345,4 +467,42 @@ h1 {
         padding: 12px 40px;
         font-size: 16px;
     }
+}
+
+
+/* Selection Frame Preview */
+#selection-frame-preview {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto 15px;
+    display: block;
+    border: 1px solid #333;
+    background: #111;
+}
+
+.selection-hint {
+    font-size: 12px;
+    color: #999;
+    margin: 0 auto 20px;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+/* Update photo-item to show selection order */
+.photo-item.selected::after {
+    content: attr(data-order);
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #fff;
+    color: #000;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
 }

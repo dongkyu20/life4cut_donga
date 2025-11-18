@@ -1,0 +1,55 @@
+/* logo */
+
+position: absolute;
+width: 449px;
+height: 211.79px;
+left: calc(50% - 449px/2 + 0.5px);
+top: 189.6px;
+
+/* button */
+
+position: absolute;
+width: 259px;
+height: 93px;
+left: calc(50% - 259px/2 + 0.5px);
+top: 839px;
+
+/* logo2 */
+
+position: absolute;
+width: 267.24px;
+height: 126.06px;
+left: calc(50% - 267.24px/2 - 0.62px);
+top: 231.15px;
+
+/* logo2 rectangle */
+
+position: absolute;
+width: 92px;
+height: 131px;
+left: 277px;
+top: 225.8px;
+
+background: linear-gradient(90deg, #4294EA 84.62%, #EFEFEF 100%);
+mix-blend-mode: darken;
+
+/* cloud */
+
+position: absolute;
+width: 1284px;
+height: 234px;
+left: -225px;
+bottom: 0px;
+
+background: url(image.png);
+background-blend-mode: lighten;
+
+/* logo3 */
+
+position: absolute;
+width: 830.67px;
+height: 272px;
+left: 2.67px;
+top: 857px;
+
+opacity: 0.4;

@@ -1,6 +1,6 @@
 // Appwrite configuration
 const appwriteConfig = {
-    endpoint: '', // Appwrite Cloud endpoint
+    endpoint: 'https://syd.cloud.appwrite.io/v1', // Appwrite Cloud endpoint
     projectId: '',
     bucketId: ''
 };
@@ -286,8 +286,8 @@ async function startPhotoCapture() {
     for (let i = 0; i < 8; i++) {
         photoCount.textContent = i + 1;
 
-        // Countdown from 3 to 1
-        for (let count = 3; count > 0; count--) {
+        // Countdown from 5 to 1
+        for (let count = 5; count > 0; count--) {
             countdown.textContent = count;
             countdown.classList.add('show');
             await sleep(1000);
@@ -343,6 +343,7 @@ function renderSelectionGrid() {
     // Reset selection
     appState.selectedPhotos = [];
     updateSelectionButton();
+    renderSelectionFramePreview();
 }
 
 // Toggle photo selection
@@ -354,16 +355,33 @@ function togglePhotoSelection(event) {
     if (photoItem.classList.contains('selected')) {
         // Deselect
         photoItem.classList.remove('selected');
+        photoItem.removeAttribute('data-order');
         appState.selectedPhotos = appState.selectedPhotos.filter(p => p !== photo);
+        
+        // Update order numbers for remaining selected photos
+        updatePhotoOrderNumbers();
     } else {
         // Check if we can select more
         if (appState.selectedPhotos.length < 4) {
             photoItem.classList.add('selected');
             appState.selectedPhotos.push(photo);
+            photoItem.setAttribute('data-order', appState.selectedPhotos.length);
         }
     }
 
     updateSelectionButton();
+    renderSelectionFramePreview();
+}
+
+// Helper function to update order numbers after deselection
+function updatePhotoOrderNumbers() {
+    const selectedItems = document.querySelectorAll('.photo-item.selected');
+    selectedItems.forEach((item) => {
+        const itemIndex = parseInt(item.dataset.index);
+        const photo = appState.capturedPhotos[itemIndex];
+        const orderInSelected = appState.selectedPhotos.indexOf(photo) + 1;
+        item.setAttribute('data-order', orderInSelected);
+    });
 }
 
 // Update selection button text
@@ -373,6 +391,66 @@ function updateSelectionButton() {
 
     button.textContent = count === 4 ? '다음' : `${count}/4`;
     button.disabled = count !== 4;
+}
+
+
+// Render frame preview on selection page
+function renderSelectionFramePreview() {
+    const canvas = document.getElementById('selection-frame-preview');
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+
+    // Get the current frame configuration
+    const currentFrame = frameImages.find(f => f.id === appState.selectedFrameId);
+    if (!currentFrame || !appState.selectedFrameImage) {
+        // If frame not loaded yet, hide canvas
+        canvas.style.display = 'none';
+        return;
+    }
+
+    canvas.style.display = 'block';
+
+    // Set canvas size for preview (smaller than full frame)
+    canvas.width = 300;
+    const aspectRatio = appState.selectedFrameImage.height / appState.selectedFrameImage.width;
+    canvas.height = 300 * aspectRatio;
+
+    // Clear canvas with dark background
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // If no photos selected, just show the frame
+    if (appState.selectedPhotos.length === 0) {
+        const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
+        ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
+        return;
+    }
+
+    // Draw the selected photos
+    let loadedPhotos = 0;
+    appState.selectedPhotos.forEach((photo, index) => {
+        const img = new Image();
+        img.onload = function() {
+            const pos = currentFrame.photoPositions[index];
+
+            // Convert percentage positions to actual pixel coordinates
+            const x = (pos.x / 100) * canvas.width;
+            const y = (pos.y / 100) * canvas.height;
+            const width = (pos.width / 100) * canvas.width;
+            const height = (pos.height / 100) * canvas.height;
+
+            drawCroppedImage(ctx, img, x, y, width, height);
+
+            loadedPhotos++;
+            // After all photos are drawn, draw the frame with transparency on top
+            if (loadedPhotos === appState.selectedPhotos.length) {
+                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
+                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
+            }
+        };
+        img.src = photo;
+    });
 }
 
 // Render frame preview
@@ -707,10 +785,14 @@ function resetApp() {
 
 // Navigation between pages
 function navigateToPage(pageIndex) {
+    let isHomePage = false;
     appState.pages.forEach((pageId, index) => {
         const page = document.getElementById(pageId);
         if (index === pageIndex) {
             page.classList.add('active');
+            if (pageId === 'home-page') {
+                isHomePage = true;
+            }
 
             // Show capture instruction when navigating to capture page
             if (pageId === 'capture-page') {
@@ -724,6 +806,7 @@ function navigateToPage(pageIndex) {
         }
     });
 
+    document.body.classList.toggle('home-active', isHomePage);
     appState.currentPage = pageIndex;
 }
 
