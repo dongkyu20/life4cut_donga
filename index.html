@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/webfontworld/gmarket/GmarketSans.css">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 </head>
@@ -16,28 +17,36 @@
         <div id="home-page" class="page active">
             <div class="home-container">
                 <div class="home-top">
-                    <h1 class="home-title">동아네컷</h1>
+                    <img src="resources/logo.svg">
                 </div>
                 <div class="home-bottom">
-                    <p class="home-description">Capture your memories in photos<br>for the Dong-A hackathon</p>
-                    <button id="start-from-home" class="btn home-btn">시작</button>
+                    <p class="home-description">촬영을 시작하려면 아래 버튼을 눌러주세요</p>
+                    <button id="start-from-home" class="btn home-btn">
+                        <img src="resources/button.svg">
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- Page 2: Capture -->
         <div id="capture-page" class="page">
+            <div class="logo-wrapper">
+            </div>
             <div class="container">
-                <h1 id="capture-instruction">하단의 '촬영'버튼을 누르면 촬영이 시작됩니다</h1>
+                <div class="countdown-progress-wrapper">
+                    <div id="countdown" class="countdown"></div>
+                    <div id="progress-indicator" class="progress-indicator hidden">
+                        <span id="photo-count">0</span><span class="total-count"> /8</span>
+                    </div>
+                </div>
                 <div class="camera-container">
                     <video id="camera-stream" autoplay playsinline></video>
                     <canvas id="capture-canvas"></canvas>
-                </div>
-                <div id="countdown" class="countdown"></div>
-                <div id="progress-indicator" class="progress-indicator hidden">
-                    <span id="photo-count">0</span>/8
+                    <div id="flash-effect" class="flash-effect"></div>
                 </div>
                 <button id="start-capture" class="btn" disabled>Loading...</button>
+                <div class="bottom-logo-wrapper hidden">
+                </div>
             </div>
         </div>
 
@@ -45,13 +54,9 @@
         <div id="selection-page" class="page">
             <div class="container">
                 <h1>4장의 사진을 선택해주세요</h1>
+                <button id="continue-to-frame" class="btn selection-complete-btn" disabled>선택 완료</button>
                 <canvas id="selection-frame-preview"></canvas>
-                <p class="selection-hint">선택한 사진이 프레임에 배치되는 위치를 미리보기로 확인할 수 있습니다</p>
                 <div class="selection-grid" id="selection-grid"></div>
-                <div class="controls">
-                    <button id="back-to-capture" class="btn secondary">이전</button>
-                    <button id="continue-to-frame" class="btn" disabled>다음</button>
-                </div>
             </div>
         </div>
 

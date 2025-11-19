@@ -53,3 +53,30 @@ left: 2.67px;
 top: 857px;
 
 opacity: 0.4;
+/* 4장의 사진을 선택해주세요 */
+
+position: absolute;
+width: 259px;
+height: 45px;
+left: calc(50% - 259px/2 + 0.5px);
+top: 49px;
+
+
+/* 촬영을 시작하려면 아래 버튼을 눌러주세요 */
+
+position: absolute;
+width: 335px;
+height: 45px;
+left: calc(50% - 335px/2 + 0.5px);
+top: 731px;
+
+font-family: 'Paperlogy';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 45px;
+/* 상자 높이와 동일 또는 225% */
+text-align: center;
+
+color: #EFEFEF;
+

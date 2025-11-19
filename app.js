@@ -1,8 +1,8 @@
 // Appwrite configuration
 const appwriteConfig = {
     endpoint: 'https://syd.cloud.appwrite.io/v1', // Appwrite Cloud endpoint
-    projectId: '',
-    bucketId: ''
+    projectId: '68e0d3f700218de89409',
+    bucketId: '68e0d40f001499322f5b'
 };
 
 // Initialize Appwrite
@@ -162,13 +162,18 @@ function setupEventListeners() {
     }
 
     // Page 3: Selection
-    document.getElementById('back-to-capture').addEventListener('click', () => navigateToPage(1));
-    document.getElementById('continue-to-frame').addEventListener('click', () => {
-        if (appState.selectedPhotos.length === 4) {
-            renderFramePreview();
-            navigateToPage(3);
-        }
-    });
+    const continueToFrameButton = document.getElementById('continue-to-frame');
+    if (continueToFrameButton) {
+        continueToFrameButton.addEventListener('click', () => {
+            if (appState.selectedPhotos.length === 4) {
+                renderFramePreview();
+                navigateToPage(3);
+            }
+        });
+        console.log('Continue to frame button listener attached');
+    } else {
+        console.error('Continue to frame button not found');
+    }
 
     // Page 4: Frame
     document.getElementById('back-to-selection').addEventListener('click', () => navigateToPage(2));
@@ -257,6 +262,10 @@ async function startPhotoCapture() {
     const progressIndicator = document.getElementById('progress-indicator');
     const photoCount = document.getElementById('photo-count');
     const captureInstruction = document.getElementById('capture-instruction');
+    const logoWrapper = document.querySelector('.logo-wrapper');
+    const bottomLogoWrapper = document.querySelector('.bottom-logo-wrapper');
+    const countdownProgressWrapper = document.querySelector('.countdown-progress-wrapper');
+    const flashEffect = document.getElementById('flash-effect');
 
     // Check if video is ready
     if (!video.videoWidth || !video.videoHeight) {
@@ -268,18 +277,49 @@ async function startPhotoCapture() {
     // Reset captured photos
     appState.capturedPhotos = [];
 
-    // Setup canvas dimensions
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Setup canvas dimensions with 2:3 aspect ratio
+    const targetAspect = 2 / 3;
+    const videoAspect = video.videoWidth / video.videoHeight;
+    
+    let sourceWidth, sourceHeight, sourceX, sourceY;
+    
+    if (videoAspect > targetAspect) {
+        // Video is wider - crop horizontally
+        sourceHeight = video.videoHeight;
+        sourceWidth = sourceHeight * targetAspect;
+        sourceX = (video.videoWidth - sourceWidth) / 2;
+        sourceY = 0;
+    } else {
+        // Video is taller - crop vertically
+        sourceWidth = video.videoWidth;
+        sourceHeight = sourceWidth / targetAspect;
+        sourceX = 0;
+        sourceY = (video.videoHeight - sourceHeight) / 2;
+    }
+    
+    // Set canvas to capture with 2:3 aspect ratio
+    canvas.width = 800;  // Fixed width
+    canvas.height = 1200; // 2:3 ratio
     console.log('Canvas dimensions:', canvas.width, 'x', canvas.height);
 
-    // Hide instruction text
+    // Hide instruction text, logo, and start button
     if (captureInstruction) {
         captureInstruction.style.display = 'none';
     }
+    if (logoWrapper) {
+        logoWrapper.classList.add('hidden');
+    }
+    startButton.style.display = 'none';
 
-    // Disable start button and show progress
-    startButton.disabled = true;
+    // Show bottom logo
+    if (bottomLogoWrapper) {
+        bottomLogoWrapper.classList.remove('hidden');
+    }
+
+    // Show countdown-progress wrapper and progress indicator
+    if (countdownProgressWrapper) {
+        countdownProgressWrapper.classList.add('active');
+    }
     progressIndicator.classList.remove('hidden');
 
     // Capture 8 photos with 5-second intervals
@@ -288,20 +328,29 @@ async function startPhotoCapture() {
 
         // Countdown from 5 to 1
         for (let count = 5; count > 0; count--) {
-            countdown.textContent = count;
+            countdown.textContent = count.toString().padStart(2, '0');
             countdown.classList.add('show');
             await sleep(1000);
         }
 
-        // Capture photo
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        // Trigger flash effect
+        flashEffect.classList.add('active');
+        
+        // Capture photo with cropping to 2:3 aspect ratio
+        ctx.drawImage(
+            video,
+            sourceX, sourceY, sourceWidth, sourceHeight,  // Source (cropped area from video)
+            0, 0, canvas.width, canvas.height             // Destination (canvas)
+        );
         const photoDataUrl = canvas.toDataURL('image/jpeg', 0.9);
         appState.capturedPhotos.push(photoDataUrl);
 
-        // Don't display captured photos during shooting
-        // Photos will be shown on selection page instead
-
         countdown.classList.remove('show');
+        
+        // Remove flash effect after animation
+        setTimeout(() => {
+            flashEffect.classList.remove('active');
+        }, 300);
 
         // Wait before next photo (if not the last one)
         if (i < 7) {
@@ -309,10 +358,12 @@ async function startPhotoCapture() {
         }
     }
 
-    // // Re-enable button and hide progress
-    // startButton.disabled = false;
-    // startButton.textContent = 'Retake Photos';
     progressIndicator.classList.add('hidden');
+
+    // Hide bottom logo after capture
+    if (bottomLogoWrapper) {
+        bottomLogoWrapper.classList.add('hidden');
+    }
 
     // Automatically move to selection page
     setTimeout(() => {
@@ -389,7 +440,7 @@ function updateSelectionButton() {
     const button = document.getElementById('continue-to-frame');
     const count = appState.selectedPhotos.length;
 
-    button.textContent = count === 4 ? '다음' : `${count}/4`;
+    button.textContent = count === 4 ? '선택 완료' : `선택 완료 (${count}/4)`;
     button.disabled = count !== 4;
 }
 
@@ -411,10 +462,10 @@ function renderSelectionFramePreview() {
 
     canvas.style.display = 'block';
 
-    // Set canvas size for preview (smaller than full frame)
-    canvas.width = 300;
+    // Set canvas size for preview (larger size)
+    canvas.width = 500;
     const aspectRatio = appState.selectedFrameImage.height / appState.selectedFrameImage.width;
-    canvas.height = 300 * aspectRatio;
+    canvas.height = 500 * aspectRatio;
 
     // Clear canvas with dark background
     ctx.fillStyle = '#1a1a1a';
@@ -794,11 +845,32 @@ function navigateToPage(pageIndex) {
                 isHomePage = true;
             }
 
-            // Show capture instruction when navigating to capture page
+            // Show capture instruction, logo, and button when navigating to capture page
             if (pageId === 'capture-page') {
                 const captureInstruction = document.getElementById('capture-instruction');
                 if (captureInstruction) {
                     captureInstruction.style.display = 'block';
+                }
+                const logoWrapper = document.querySelector('.logo-wrapper');
+                if (logoWrapper) {
+                    logoWrapper.classList.remove('hidden');
+                }
+                const bottomLogoWrapper = document.querySelector('.bottom-logo-wrapper');
+                if (bottomLogoWrapper) {
+                    bottomLogoWrapper.classList.add('hidden');
+                }
+                const startButton = document.getElementById('start-capture');
+                if (startButton) {
+                    startButton.style.display = 'block';
+                }
+                // Hide countdown-progress wrapper when navigating to capture page
+                const countdownProgressWrapper = document.querySelector('.countdown-progress-wrapper');
+                if (countdownProgressWrapper) {
+                    countdownProgressWrapper.classList.remove('active');
+                }
+                const countdown = document.getElementById('countdown');
+                if (countdown) {
+                    countdown.classList.remove('show');
                 }
             }
         } else {
