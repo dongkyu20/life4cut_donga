@@ -1,8 +1,8 @@
 // Appwrite configuration
 const appwriteConfig = {
     endpoint: 'https://syd.cloud.appwrite.io/v1', // Appwrite Cloud endpoint
-    projectId: '68e0d3f700218de89409',
-    bucketId: '68e0d40f001499322f5b'
+    projectId: '',
+    bucketId: ''
 };
 
 // Initialize Appwrite
