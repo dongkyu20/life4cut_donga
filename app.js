@@ -18,17 +18,17 @@ function initializeAppwrite() {
 
 // Available frame images with photo position configurations
 // Based on canvas 400x800, converted to percentages
-// Reference: x: 30, y: 50, width: 167, height: 297 for top-left
+// Reference: x: 30, y: 47.45, width: 167, height: 297 for top-left
 const frameImages = [
     {
         id: 1,
         path: 'frames/1.png',
         name: 'Frame 1',
         photoPositions: [
-            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
         ]
     },
     {
@@ -36,10 +36,10 @@ const frameImages = [
         path: 'frames/2.png',
         name: 'Frame 2',
         photoPositions: [
-            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
         ]
     },
     {
@@ -47,10 +47,10 @@ const frameImages = [
         path: 'frames/3.png',
         name: 'Frame 3',
         photoPositions: [
-            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
         ]
     },
     {
@@ -58,10 +58,10 @@ const frameImages = [
         path: 'frames/4.png',
         name: 'Frame 4',
         photoPositions: [
-            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
         ]
     },
     {
@@ -69,23 +69,45 @@ const frameImages = [
         path: 'frames/5.png',
         name: 'Frame 5',
         photoPositions: [
-            { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-            { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-            { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
         ]
     },
-    // {
-    //     id: 6,
-    //     path: 'frames/6.png',
-    //     name: 'Frame 6',
-    //     photoPositions: [
-    //         { x: 7.65, y: 6.4, width: 41.5, height: 36.4 }, 
-    //         { x: 50.75, y: 6.4, width: 41.5, height: 36.4 }, 
-    //         { x: 7.65, y: 43.75, width: 41.5, height: 36.4 }, 
-    //         { x: 50.75, y: 43.75, width: 41.5, height: 36.4 } 
-    //     ]
-    // }
+    {
+        id: 6,
+        path: 'frames/6.png',
+        name: 'Frame 6',
+        photoPositions: [
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
+        ]
+    },
+    {
+        id: 7,
+        path: 'frames/7.png',
+        name: 'Frame 7',
+        photoPositions: [
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
+        ]
+    },
+    {
+        id: 8,
+        path: 'frames/8.png',
+        name: 'Frame 8',
+        photoPositions: [
+            { x: 7.7, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 5.7, width: 41.3, height: 40.7 }, 
+            { x: 7.7, y: 47.45, width: 41.3, height: 40.7 }, 
+            { x: 50.5, y: 47.45, width: 41.3, height: 40.7 } 
+        ]
+    },
 ];
 
 // Global state management
@@ -176,11 +198,16 @@ function setupEventListeners() {
     }
 
     // Page 4: Frame
-    document.getElementById('back-to-selection').addEventListener('click', () => navigateToPage(2));
-    document.getElementById('continue-to-preview').addEventListener('click', () => {
-        generateFinalImage();
-        navigateToPage(4);
-    });
+    const continueToPreviewButton = document.getElementById('continue-to-preview');
+    if (continueToPreviewButton) {
+        continueToPreviewButton.addEventListener('click', () => {
+            generateFinalImage();
+            navigateToPage(4);
+        });
+        console.log('Continue to preview button listener attached');
+    } else {
+        console.error('Continue to preview button not found');
+    }
 
     // Page 5: Preview
     const downloadButton = document.getElementById('download-direct');
@@ -212,12 +239,7 @@ function generateFrameOptions() {
         img.style.objectFit = 'contain';
 
         thumbnail.appendChild(img);
-
-        const label = document.createElement('p');
-        label.textContent = frame.name;
-
         option.appendChild(thumbnail);
-        option.appendChild(label);
 
         option.addEventListener('click', function() {
             document.querySelectorAll('.frame-option').forEach(opt => opt.classList.remove('selected'));
@@ -467,18 +489,19 @@ function renderSelectionFramePreview() {
     const aspectRatio = appState.selectedFrameImage.height / appState.selectedFrameImage.width;
     canvas.height = 500 * aspectRatio;
 
-    // Clear canvas with dark background
-    ctx.fillStyle = '#1a1a1a';
+    // Clear canvas with white background
+    ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw the frame first (background layer)
+    ctx.drawImage(appState.selectedFrameImage, 0, 0, canvas.width, canvas.height);
 
     // If no photos selected, just show the frame
     if (appState.selectedPhotos.length === 0) {
-        const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
-        ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
         return;
     }
 
-    // Draw the selected photos
+    // Draw the selected photos on top of the frame
     let loadedPhotos = 0;
     appState.selectedPhotos.forEach((photo, index) => {
         const img = new Image();
@@ -494,11 +517,6 @@ function renderSelectionFramePreview() {
             drawCroppedImage(ctx, img, x, y, width, height);
 
             loadedPhotos++;
-            // After all photos are drawn, draw the frame with transparency on top
-            if (loadedPhotos === appState.selectedPhotos.length) {
-                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
-                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
-            }
         };
         img.src = photo;
     });
@@ -530,7 +548,10 @@ function renderFramePreview() {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the selected photos using custom positions
+    // Draw the frame first (background layer)
+    ctx.drawImage(appState.selectedFrameImage, 0, 0, canvas.width, canvas.height);
+
+    // Draw the selected photos using custom positions on top of the frame
     let loadedPhotos = 0;
     appState.selectedPhotos.forEach((photo, index) => {
         const img = new Image();
@@ -546,81 +567,10 @@ function renderFramePreview() {
             drawCroppedImage(ctx, img, x, y, width, height);
 
             loadedPhotos++;
-            // After all photos are drawn, draw the frame with transparency on top
-            if (loadedPhotos === appState.selectedPhotos.length) {
-                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
-                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
-            }
         };
         img.src = photo;
     });
 }
-
-
-// Function to make gray areas in frame transparent
-function makeGrayTransparent(frameImg) {
-    // Create a temporary canvas to process the frame
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = frameImg.width;
-    tempCanvas.height = frameImg.height;
-    const tempCtx = tempCanvas.getContext('2d');
-
-    // Draw the frame image
-    tempCtx.drawImage(frameImg, 0, 0);
-
-    // Get image data
-    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
-    const data = imageData.data;
-
-    // Loop through pixels and make gray areas transparent
-    // Gray color is approximately RGB(200-210, 200-210, 200-210)
-    for (let i = 0; i < data.length; i += 4) {
-        const r = data[i];
-        const g = data[i + 1];
-        const b = data[i + 2];
-
-        // Check if pixel is gray (adjust threshold as needed)
-        // Gray areas in your frames appear to be around RGB(205, 205, 205)
-        if (r > 180 && g > 180 && b > 180 &&
-            Math.abs(r - g) < 20 && Math.abs(g - b) < 20 && Math.abs(r - b) < 20) {
-            data[i + 3] = 0; // Make transparent
-        }
-    }
-
-    // Put the modified image data back
-    tempCtx.putImageData(imageData, 0, 0);
-
-    return tempCanvas;
-}
-
-// Function to draw image with center cropping to maintain aspect ratio
-function drawCroppedImage(ctx, img, x, y, width, height) {
-    const targetAspect = width / height;
-    const imgAspect = img.width / img.height;
-
-    let sourceX = 0;
-    let sourceY = 0;
-    let sourceWidth = img.width;
-    let sourceHeight = img.height;
-
-    if (imgAspect > targetAspect) {
-        // Image is wider than target - crop horizontally
-        sourceWidth = img.height * targetAspect;
-        sourceX = (img.width - sourceWidth) / 2;
-    } else if (imgAspect < targetAspect) {
-        // Image is taller than target - crop vertically
-        sourceHeight = img.width / targetAspect;
-        sourceY = (img.height - sourceHeight) / 2;
-    }
-
-    // Draw the cropped image
-    ctx.drawImage(
-        img,
-        sourceX, sourceY, sourceWidth, sourceHeight,  // Source rectangle (cropped area)
-        x, y, width, height                           // Destination rectangle
-    );
-}
-
 
 
 // Generate final image
@@ -649,7 +599,10 @@ function generateFinalImage() {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw the selected photos using custom positions
+    // Draw the frame first (background layer)
+    ctx.drawImage(appState.selectedFrameImage, 0, 0, canvas.width, canvas.height);
+
+    // Draw the selected photos using custom positions on top of the frame
     let loadedCount = 0;
     appState.selectedPhotos.forEach((photo, index) => {
         const img = new Image();
@@ -666,10 +619,6 @@ function generateFinalImage() {
 
             loadedCount++;
             if (loadedCount === 4) {
-                // After all photos are drawn, draw the frame with transparency on top
-                const transparentFrame = makeGrayTransparent(appState.selectedFrameImage);
-                ctx.drawImage(transparentFrame, 0, 0, canvas.width, canvas.height);
-
                 // Save final image when everything is drawn
                 appState.finalImageDataUrl = canvas.toDataURL('image/jpeg', 0.95);
                 generateQRCode();
@@ -678,7 +627,6 @@ function generateFinalImage() {
         img.src = photo;
     });
 }
-
 
 // Upload image to cloud storage
 async function uploadImageToCloud(dataUrl) {
@@ -885,4 +833,32 @@ function navigateToPage(pageIndex) {
 // Utility function for delays
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Function to draw image with center cropping to maintain aspect ratio
+function drawCroppedImage(ctx, img, x, y, width, height) {
+    const targetAspect = width / height;
+    const imgAspect = img.width / img.height;
+
+    let sourceX = 0;
+    let sourceY = 0;
+    let sourceWidth = img.width;
+    let sourceHeight = img.height;
+
+    if (imgAspect > targetAspect) {
+        // Image is wider than target - crop horizontally
+        sourceWidth = img.height * targetAspect;
+        sourceX = (img.width - sourceWidth) / 2;
+    } else if (imgAspect < targetAspect) {
+        // Image is taller than target - crop vertically
+        sourceHeight = img.width / targetAspect;
+        sourceY = (img.height - sourceHeight) / 2;
+    }
+
+    // Draw the cropped image
+    ctx.drawImage(
+        img,
+        sourceX, sourceY, sourceWidth, sourceHeight,  // Source rectangle (cropped area)
+        x, y, width, height                           // Destination rectangle
+    );
 }
