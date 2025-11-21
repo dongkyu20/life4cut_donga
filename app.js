@@ -349,7 +349,7 @@ async function startPhotoCapture() {
         photoCount.textContent = i + 1;
 
         // Countdown from 5 to 1
-        for (let count = 5; count > 0; count--) {
+        for (let count = 1; count > 0; count--) {
             countdown.textContent = count.toString().padStart(2, '0');
             countdown.classList.add('show');
             await sleep(1000);

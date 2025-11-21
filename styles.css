@@ -349,7 +349,7 @@ h1 {
 
 #preview-page #qr-code {
     position: fixed;
-    bottom: 3vh;
+    bottom: 5vh;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 5vh;
@@ -546,7 +546,7 @@ h1 {
     max-width: 400px;
 }
 
-/* Tablet */
+/* Tablet
 @media (min-width: 601px) and (max-width: 1024px) {
     #app {
         max-width: 700px;
@@ -684,7 +684,7 @@ h1 {
     #preview-page .controls {
         margin-top: 20vh;
     }
-}
+} */
 
 /* Selection Complete Button */
 .selection-complete-btn {
